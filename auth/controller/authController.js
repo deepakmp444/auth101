@@ -1,5 +1,6 @@
 const connection = require('../db/config')
 const jwt = require('jsonwebtoken')
+
 const createUser = (req, res) => {
     const { id, email, password } = req.body;
     const data = {
@@ -59,8 +60,22 @@ const getAllUser = (req, res) => {
     })
 }
 
-const logoutUser = (req, res) => {
-    res.status(200).clearCookie('token').json({ data: null, message: "Logout successfully" })
+const userVerify = (req, res) => {
+
+    const query = "select email, id from user where email = ?"
+    connection.query(query, req.getEmail, (err, result) => {
+        if (err) {
+            res.status(400).json({ message: "Please create account first!" })
+        } else {
+            res.status(200).json({ data: result })
+        }
+    })
+
 }
 
-module.exports = { createUser, loginUser, getAllUser, logoutUser }
+
+const logoutUser = (req, res) => {
+    res.status(200).clearCookie('token', { sameSite: "none", secure: true }).json({ data: null, message: "Logout successfully" })
+}
+
+module.exports = { createUser, loginUser, getAllUser, logoutUser, userVerify }

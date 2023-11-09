@@ -67,7 +67,7 @@ app.post("/jwt", (req, res) => {
   // ('1y')      // 31557600000
 
   const jwtData = jwt.sign(data, "lsdnflkasdjflsjd", {
-    expiresIn: "1day"
+    expiresIn: "1d"
   });
 
   const option = {
