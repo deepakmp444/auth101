@@ -4,6 +4,7 @@ import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
 import NavBar from "./components/NavBar";
 import Create from "./page/Create";
+import ProtectRoute from "./components/ProtectRoute";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={ <ProtectRoute><Dashboard /></ProtectRoute> } />
       </Routes>
     </div>
   );

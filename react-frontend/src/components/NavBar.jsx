@@ -1,7 +1,18 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      const data = await axios.get("http://localhost:4004/api/logout")
+      console.log('data:', data)
+      navigate("/")
+    } catch (error) {
+      console.log('error:', error)
+    }
+  }
 
   return (
     <>
@@ -23,6 +34,13 @@ function NavBar() {
               </li>
             </ul>
             <div className="d-flex" role="search">
+              <button
+                className="btn btn-success me-2"
+                onClick={logout}
+              >
+                Logout
+              </button>
+
               <button
                 className="btn btn-success me-2"
                 onClick={() => navigate("/create")}
